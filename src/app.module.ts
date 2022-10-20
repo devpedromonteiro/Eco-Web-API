@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users-test/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
@@ -9,7 +8,6 @@ import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       name: 'default',
