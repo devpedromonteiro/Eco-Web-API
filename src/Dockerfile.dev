@@ -1,0 +1,14 @@
+# Define node version
+FROM node:16.17.1
+
+# Create app directory
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY ./ .
+RUN npm install
+
+# Create user node
+USER node
+
+EXPOSE 8080
+CMD [ "npm", "run", "start:dev" ]
