@@ -3,10 +3,9 @@ import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
 @Entity('users')
 export class User {
   @ObjectIdColumn() id: ObjectID;
-  @Column() username: string;
+  @Column() email: string;
   @Column() password: string;
-  @Column() pictureUrl?: string;
-  @Column() birthDate?: Date;
+  @Column() name?: string;
 
   constructor(user?: Partial<User>) {
     Object.assign(this, user);
