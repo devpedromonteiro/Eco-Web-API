@@ -15,6 +15,7 @@ services:
             - PORT=8080
             - CONNECTION_STRING=mongodb://eco-web_root:c2ed585d2338ed58@mongo-eco-web:27017
             - MONGO_INITDB_DATABASE=eco-web
+            - JWT_SECRET=169d88b975cf33adc84a644b9461fca3c074378f0134c29b23b27976a424045a
         networks:
             - eco-web-connect
         ports:
