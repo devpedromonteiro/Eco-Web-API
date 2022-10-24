@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('ECO WEB API')
     .setDescription('API para o sistema Eco Web')
     .setVersion('1.0')
-    .addTag('users')
+    .addTag('user')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);

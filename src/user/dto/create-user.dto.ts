@@ -13,7 +13,7 @@ export class CreateUserDto extends User {
   @IsEmail()
   email: string;
 
-  @ApiProperty({description:'Username utilizado para o login'})
+  @ApiProperty({description:'Senha utilizada para o login'})
   @IsString()
   @MinLength(4)
   @MaxLength(20)
@@ -22,7 +22,7 @@ export class CreateUserDto extends User {
   })
   password: string;
 
-  @ApiProperty({description:'Username utilizado para o login'})
+  @ApiProperty({description:'Nome do usuário'})
   @IsString()
   name: string;
 }
