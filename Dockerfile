@@ -6,7 +6,7 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 ENV NODE_ENV development
 ENV MONGODB_DATABASE eco-web 
-ENV MONGODB_CONNECTION_STRING mongodb://eco-web_root:c2ed585d2338ed58@192.168.1.6:27017
+ENV MONGODB_CONNECTION_STRING mongodb+srv://eco-web:3c0d4t4M@cluster0.dzuhnsu.mongodb.net/test
 ENV JWT_SECRET 169d88b975cf33adc84a644b9461fca3c074378f0134c29b23b27976a424045a
 
 ADD package.json /app/package.json
