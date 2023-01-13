@@ -8,6 +8,8 @@ import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { SpreadsheetModule } from './spreadsheets/spreadsheet.module';
+import { SpreadsheetRowModule } from './spreadsheets_rows/spreadsheet_row.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
     }),
     TypeOrmModule.forFeature([User]),
     UserModule,
+    SpreadsheetModule,
+    SpreadsheetRowModule,
     AuthModule,
   ],
   controllers: [AppController],

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
-import { MongoRepository } from 'typeorm';
+import { DeepPartial, MongoRepository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 
@@ -12,7 +12,7 @@ export class UserService {
     private readonly usersRepository: MongoRepository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<DeepPartial<User>> {
     const user = {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
