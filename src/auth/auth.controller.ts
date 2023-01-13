@@ -17,7 +17,7 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiBody({schema:{properties:{email:{}, password:{}}}})
+  @ApiBody({schema:{properties:{email: {default:'eco-data@email.com'}, password:{default:'Ecodata123!'}}}})
   @IsPublic()
   @UseGuards(LocalAuthGuard)
   @Post('login')
