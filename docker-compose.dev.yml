@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+    api-eco-web:
+        container_name: api-eco-web
+        image: api-eco-web:dev
+        build:
+            context: .
+            dockerfile: ./src/Dockerfile.dev
+        volumes:
+            - ./:/app
+            - ./node_modules:/app/node_modules
+        environment:
+            - NODE_ENV=development
+            - PORT=8080
+            - CONNECTION_STRING=mongodb://eco-web_root:c2ed585d2338ed58@mongo-eco-web:27017
+            - MONGO_INITDB_DATABASE=eco-web
+            - JWT_SECRET=169d88b975cf33adc84a644b9461fca3c074378f0134c29b23b27976a424045a
+        networks:
+            - eco-web-connect
+        ports:
+            - '8888:3000'
+        depends_on:
+            - mongo-eco-web
+
+    mongo-eco-web:
+        container_name: mongo-eco-web
+        image: mongo
+        command: "mongod --auth --quiet --logpath /dev/null"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: eco-web_root
+            MONGO_INITDB_ROOT_PASSWORD: c2ed585d2338ed58
+            MONGO_INITDB_DATABASE: eco-web
+        ports:
+            - 27017:27017
+        volumes:
+            - ~/docker/volumes/EcoWeb_MongoDB:/data/db
+        networks:
+            - eco-web-connect
+        logging:
+            driver: none
+
+networks:
+    eco-web-connect:
+        driver: bridge
+            
+

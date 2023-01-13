@@ -1,11 +1,43 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { SpreadsheetModule } from './spreadsheets/spreadsheet.module';
+import { SpreadsheetRowModule } from './spreadsheets_rows/spreadsheet_row.module';
 
 @Module({
-  imports: [UsersModule],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      name: 'default',
+      type: 'mongodb',
+      authSource: process.env.NODE_ENV === 'development' ? 'admin' : undefined,
+      database: process.env.MONGODB_DATABASE,
+      url: process.env.MONGODB_CONNECTION_STRING,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+      synchronize: true,
+    }),
+    TypeOrmModule.forFeature([User]),
+    UserModule,
+    SpreadsheetModule,
+    SpreadsheetRowModule,
+    AuthModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
