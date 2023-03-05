@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpCode, Param, Put, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 import { Request } from 'express';
@@ -19,7 +27,7 @@ export class SpreadsheetsController {
     schema: { oneOf: [{ type: 'string' }] },
     example: '6394bb82237c2d9d8af4509a',
   })
-  find(@Param() spreadsheet_id,@Req() req: Request) {
+  find(@Param() spreadsheet_id, @Req() req: Request) {
     const spreadsheet_id_param = spreadsheet_id.spreadsheet_id;
     return this.spreadsheetsService.findByID(spreadsheet_id_param);
   }
@@ -38,15 +46,14 @@ export class SpreadsheetsController {
         spreadsheet_id,
       );
       // TODO trocar por environment
-      spreadsheet.download_link = `https://${'bucket-eco-data'}.s3.amazonaws.com/${
-        original_spreadsheet.file_s3_key
-      }`;
+      const s3_bucket = 's3-bucket-eco-data';
+      const s3_key_encoded = encodeURIComponent(
+        original_spreadsheet.file_s3_key,
+      );
+      spreadsheet.download_link = `https://${s3_bucket}.s3.amazonaws.com/${s3_key_encoded}`;
     }
 
-    return this.spreadsheetsService.update(
-      spreadsheet_id,
-      spreadsheet,
-    );
+    return this.spreadsheetsService.update(spreadsheet_id, spreadsheet);
   }
 
   @ApiBearerAuth()
