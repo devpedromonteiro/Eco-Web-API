@@ -32,7 +32,7 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: c2ed585d2338ed58
             MONGO_INITDB_DATABASE: eco-web
         ports:
-            - 27017:27017
+            - 27028:27017
         volumes:
             - ~/docker/volumes/EcoWeb_MongoDB:/data/db
         networks:
