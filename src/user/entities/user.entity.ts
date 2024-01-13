@@ -1,13 +1,13 @@
 import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
   Entity,
   ObjectID,
   ObjectIdColumn,
-  Column,
-  BeforeInsert,
-  BeforeUpdate,
-  CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { EnumRoles } from '../../models';
 
 @Entity('users')
 export class User {
@@ -16,6 +16,7 @@ export class User {
   @Column() password: string;
   @Column() user_color: string;
   @Column() name?: string;
+  @Column() role: EnumRoles;
   @CreateDateColumn() create_at: Date;
   @UpdateDateColumn() updated_at: Date;
 
