@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UnauthorizedError } from './errors/unauthorized.error';
+import { DeepPartial } from 'typeorm';
 import { User } from '../user/entities/user.entity';
 import { UserService } from '../user/user.service';
+import { UnauthorizedError } from './errors/unauthorized.error';
 import { UserPayload } from './models/UserPayload';
 import { UserToken } from './models/UserToken';
-import { DeepPartial } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -15,13 +15,23 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
+  /**
+   * login
+   *
+   * Login user
+   *
+   * @param user
+   *
+   * @returns Promise<UserToken>
+   */
   async login(user: User): Promise<UserToken> {
     const payload: UserPayload = {
       sub: user.id.toString(),
       email: user.email,
       name: user.name,
+      role: user.role,
     };
-    
+
     delete user.password;
 
     return {
@@ -30,7 +40,20 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, password: string): Promise<DeepPartial<User>> {
+  /**
+   * validateUser
+   *
+   * Validate user credentials
+   *
+   * @param email
+   * @param password
+   *
+   * @returns Promise<DeepPartial<User>>
+   */
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<DeepPartial<User>> {
     const user = await this.userService.findByEmail(email);
 
     if (user) {
