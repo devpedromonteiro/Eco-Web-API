@@ -19,7 +19,7 @@ import { SpreadsheetRowModule } from './spreadsheets_rows/spreadsheet_row.module
       type: 'mongodb',
       authSource: process.env.NODE_ENV === 'development' ? 'admin' : undefined,
       database: process.env.MONGODB_DATABASE,
-      url: process.env.MONGODB_CONNECTION_STRING,
+      url: process.env.CONNECTION_STRING,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       useUnifiedTopology: true,
       useNewUrlParser: true,

@@ -4,7 +4,9 @@
 
 # Docker
 Dockerfile
+Dockerfile.prod
 docker-compose.dev.yml
+docker-compose.prod.yml
 
 # Logs
 logs
